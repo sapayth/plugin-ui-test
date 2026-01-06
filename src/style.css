@@ -5,10 +5,13 @@
     --color-gray-500: red;
 }
 
+@source '../src';
+@source '../node_modules/@wedevs/plugin-ui/dist';
+
 
 .plugin-ui-test-app {
     @import "tailwindcss/preflight.css" layer(base);
-    @import "tailwindcss/utilities.css" layer(utilities) important;
+    @import "tailwindcss/utilities.css" layer(utilities);
 
     p {
         margin: 0;
