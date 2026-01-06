@@ -1,0 +1,17 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+
+@theme {
+    --color-gray-500: red;
+}
+
+
+.plugin-ui-test-app {
+    @import "tailwindcss/preflight.css" layer(base);
+    @import "tailwindcss/utilities.css" layer(utilities) important;
+
+    p {
+        margin: 0;
+    }
+
+}
