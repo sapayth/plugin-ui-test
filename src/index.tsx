@@ -2,7 +2,6 @@ import { render, useState } from "@wordpress/element";
 import "@wedevs/plugin-ui/styles.css";
 import "./style.css";
 
-// Safelist: Ensure purple button classes are generated (used by @getdokan/dokan-ui Button component)
 import {
   Button,
   Alert,
@@ -310,8 +309,7 @@ const App = () => {
             Tailwind 4 @theme and @apply variables test - This background should
             be red if override works!
           </div>
-          {/* Safelist: Force generation of purple classes used by Button component */}
-          <div className="hidden bg-purple-600 hover:bg-purple-700" />
+          <div className="hidden" />
           <p className="mt-4">
             Built with @wedevs/plugin-ui and Tailwind CSS 4
           </p>
