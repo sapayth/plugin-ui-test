@@ -13,7 +13,7 @@ add_action( 'admin_menu', function() {
         'manage_options',
         'plugin-ui-test',
         function() {
-            echo '<div id="plugin-ui-test-app"></div>';
+            echo '<div id="plugin-ui-test-app" style="width: 50%; height: 100%;"></div>';
         },
         'dashicons-layout',
         100

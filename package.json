@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.17",
-    "@wedevs/plugin-ui": "file:../dokan-lite/packages/plugin-ui",
+    "@wedevs/plugin-ui": "file:../plugin-ui",
+    "@wordpress/element": "^6.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

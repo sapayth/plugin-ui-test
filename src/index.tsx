@@ -1,4 +1,4 @@
-import { render, useState } from "@wordpress/element";
+import { useState, createRoot } from "@wordpress/element";
 import "@wedevs/plugin-ui/styles.css";
 import "./style.css";
 
@@ -29,6 +29,33 @@ import {
   AlertTriangle,
   LucideIcon,
   Plus,
+  RichText,
+  Popover,
+  Modal,
+  Tooltip,
+  AsyncSelect,
+  ShowHideField,
+  SocialButton,
+  MediaUploader,
+  Filter,
+  ListItem,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CopyIcon,
+  EyeIcon,
+  EyeOffIcon,
+  GoogleIcon,
+  InfoIcon,
+  RefreshIcon,
+  SquareMinus,
+  SquarePlus,
+  Search,
+  X,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  Shadcn,
 } from "@wedevs/plugin-ui";
 
 const App = () => {
@@ -37,6 +64,10 @@ const App = () => {
   const [radioValue, setRadioValue] = useState("option1");
   const [switchOn, setSwitchOn] = useState(false);
   const [customizeRadio, setCustomizeRadio] = useState("card1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [showHideValue, setShowHideValue] = useState("hidden content");
+  const [richTextValue, setRichTextValue] = useState("");
 
   return (
     <div className="plugin-ui-test-app">
@@ -88,6 +119,8 @@ const App = () => {
             Actions (Buttons)
           </h2>
           <div className="flex flex-wrap gap-4 items-center">
+            <Shadcn.Button  variant="outline" size="sm">ShadcnButton</Shadcn.Button>
+            <Shadcn.Button  variant="outline">ShadcnButton</Shadcn.Button>
             <Button variant="primary">Primary Action</Button>
             <Button variant="secondary">Secondary Action</Button>
             <Button variant="tertiary">Tertiary Action</Button>
@@ -212,7 +245,7 @@ const App = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <FieldLabel title="Search Input" />
-              <SearchInput onSearch={(v) => console.log("Searching:", v)} />
+              <SearchInput onChange={(v) => console.log("Searching:", v)} />
             </div>
             <div className="space-y-2">
               <FieldLabel title="Debounced Input" />
@@ -221,6 +254,22 @@ const App = () => {
                 onChange={(v) => console.log("Debounced:", v)}
               />
             </div>
+          </div>
+        </section>
+
+        {/* Rich Text Editor */}
+        <section className="space-y-6">
+          <h2 className="text-2xl font-bold">Rich Text Editor</h2>
+          <div className="space-y-4">
+            <FieldLabel
+              title="Rich Text Editor"
+              description="WYSIWYG editor with formatting options, images, and videos"
+            />
+            <RichText
+              value={richTextValue}
+              onChange={(v) => setRichTextValue(v as string)}
+              placeholder="Start typing your content here..."
+            />
           </div>
         </section>
 
@@ -304,6 +353,203 @@ const App = () => {
           </InfoBox>
         </section>
 
+        {/* Modal & Popover */}
+        <section className="space-y-6">
+          <h2 className="text-2xl font-bold">Overlays & Dialogs</h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+              Open Modal
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+            >
+              Toggle Popover!
+              {isPopoverOpen && <Popover>Popover is toggled!</Popover>}
+            </Button>
+            <Tooltip content="This is a tooltip message">
+              <Button variant="tertiary">Hover for Tooltip</Button>
+            </Tooltip>
+          </div>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onConfirm={() => setIsModalOpen(false)}
+            title="Example Modal"
+            confirmText="Confirm"
+            cancelText="Cancel"
+          >
+            <div className="space-y-4">
+              <p>
+                This is a modal dialog component. You can add any content here.
+              </p>
+              <TextField
+                value={text}
+                onChange={(v) => setText(v as string)}
+                placeholder="Enter text in modal..."
+              />
+            </div>
+          </Modal>
+        </section>
+
+        {/* Async Selects */}
+        <section className="space-y-6">
+          <h2 className="text-2xl font-bold">Async Select Components</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <FieldLabel title="Generic Async Select" />
+              <AsyncSelect
+                value={null}
+                onChange={() => {}}
+                placeholder="Search..."
+                loadOptions={async (inputValue) => {
+                  // Simulate async loading
+                  return [
+                    { label: `Option 1 for "${inputValue}"`, value: "1" },
+                    { label: `Option 2 for "${inputValue}"`, value: "2" },
+                  ];
+                }}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Components */}
+        <section className="space-y-6">
+          <h2 className="text-2xl font-bold">Additional Components</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <FieldLabel title="Show/Hide Field" />
+              <ShowHideField
+                value={showHideValue}
+                onChange={(v) => setShowHideValue(v as string)}
+                placeholder="Enter hidden content..."
+              />
+            </div>
+            <div className="space-y-2">
+              <FieldLabel title="Social Button" />
+              <SocialButton
+                network="google"
+                onClick={() => console.log("Google login")}
+              />
+            </div>
+            <div className="space-y-2">
+              <FieldLabel title="Media Uploader" />
+              <MediaUploader
+                onSelect={(media) => console.log("Selected media:", media)}
+              >
+                <Button variant="secondary">Select Media</Button>
+              </MediaUploader>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Filter Component</h3>
+            <Filter
+              namespace="example"
+              fields={[
+                <Select
+                  key="status"
+                  options={[
+                    { label: "Active", value: "active" },
+                    { label: "Inactive", value: "inactive" },
+                  ]}
+                  placeholder="Select Status"
+                />,
+              ]}
+              onFilter={() => console.log("Filter applied")}
+              onReset={() => console.log("Filter reset")}
+            />
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">List Item Component</h3>
+            <div className="border rounded-lg p-4">
+              <ListItem
+                primary="Standalone List Item"
+                secondary="This is a single list item component"
+                leadingElement={
+                  <div className="p-2 bg-purple-100 text-purple-600 rounded-full">
+                    <LucideIcon iconName="Star" size={16} />
+                  </div>
+                }
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Icons Showcase */}
+        <section className="space-y-6">
+          <h2 className="text-2xl font-bold">Icons Collection</h2>
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-4 p-6 bg-gray-50 rounded-xl">
+            <div className="flex flex-col items-center gap-2">
+              <ChevronDownIcon size={24} />
+              <span className="text-xs text-gray-600">ChevronDown</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ChevronUpIcon size={24} />
+              <span className="text-xs text-gray-600">ChevronUp</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <CopyIcon />
+              <span className="text-xs text-gray-600">Copy</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <EyeIcon />
+              <span className="text-xs text-gray-600">Eye</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <EyeOffIcon />
+              <span className="text-xs text-gray-600">EyeOff</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <GoogleIcon />
+              <span className="text-xs text-gray-600">Google</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <InfoIcon />
+              <span className="text-xs text-gray-600">Info</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <RefreshIcon />
+              <span className="text-xs text-gray-600">Refresh</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <SquareMinus size={24} />
+              <span className="text-xs text-gray-600">SquareMinus</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <SquarePlus size={24} />
+              <span className="text-xs text-gray-600">SquarePlus</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Search size={24} />
+              <span className="text-xs text-gray-600">Search</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <X size={24} />
+              <span className="text-xs text-gray-600">X</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Calendar size={24} />
+              <span className="text-xs text-gray-600">Calendar</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ChevronLeft size={24} />
+              <span className="text-xs text-gray-600">ChevronLeft</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ChevronRight size={24} />
+              <span className="text-xs text-gray-600">ChevronRight</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Loader2 size={24} className="animate-spin" />
+              <span className="text-xs text-gray-600">Loader2</span>
+            </div>
+          </div>
+        </section>
+
         <footer className="pt-12 border-t text-center text-gray-500 text-sm">
           <div className="test-component">
             Tailwind 4 @theme and @apply variables test - This background should
@@ -319,11 +565,11 @@ const App = () => {
   );
 };
 
-const root = document.getElementById("plugin-ui-test-app");
-if (root) {
-  if ((window as any).wp?.element?.createRoot) {
-    (window as any).wp.element.createRoot(root).render(<App />);
-  } else {
-    render(<App />, root);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const domNode = document.getElementById("plugin-ui-test-app");
+  if ( domNode ) {
+    const root = createRoot( domNode! );
+    root.render( <App /> );
   }
-}
+})
