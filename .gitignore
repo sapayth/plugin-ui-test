@@ -1,4 +1,9 @@
 package-json.lock
+
 /node_modules
+
 /build
+
 /vendor
+
+config.bat
