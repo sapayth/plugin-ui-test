@@ -1,21 +1,21 @@
 {
   "name": "plugin-ui-test",
   "version": "1.0.0",
-  "description": "Test plugin for @wedevs/plugin-ui with Tailwind 4",
-  "main": "src/index.js",
+  "description": "Demo plugin for @wedevs/plugin-ui components",
+  "main": "src/index.tsx",
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.0.17",
     "@wedevs/plugin-ui": "file:../plugin-ui",
-    "@wordpress/element": "^6.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "@wordpress/scripts": "^30.25.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18"
