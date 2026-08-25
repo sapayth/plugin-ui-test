@@ -4,8 +4,8 @@
   "description": "Demo plugin for @wedevs/plugin-ui components",
   "main": "src/index.tsx",
   "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build"
+    "start": "node init && wp-scripts start",
+    "build": "node init && wp-scripts build"
   },
   "dependencies": {
     "@wedevs/plugin-ui": "file:../plugin-ui",
