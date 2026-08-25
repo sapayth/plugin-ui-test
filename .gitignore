@@ -6,4 +6,4 @@ package-json.lock
 
 /vendor
 
-config.bat
+.env
